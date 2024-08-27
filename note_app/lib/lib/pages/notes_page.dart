@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/main.dart';
+
 import 'package:note_app/models/note.dart';
 import 'package:note_app/models/note_database.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,6 @@ class NotesPage extends StatefulWidget {
   State<NotesPage> createState() => _NotesPageState();
 
 }
-
 
 class _NotesPageState extends State<NotesPage> {
   final textController = TextEditingController();
@@ -26,11 +25,6 @@ class _NotesPageState extends State<NotesPage> {
 
   }
   
-
-
-
-
-
 // create a note 
 void createNote() {
   showDialog(
@@ -79,8 +73,10 @@ void readNotes() {
 // update a note
 void updateNote(Note note) {
   // pre-fill the current note text
-  textController.text =note.text;
-  showDialog(context: context, builder: (context) => AlertDialog(
+  textController.text = note.text;
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
     title: const Text("Update Note"),
     content: TextField(controller: textController),
       actions: [
@@ -88,13 +84,14 @@ void updateNote(Note note) {
         MaterialButton(
           onPressed: () {
             // update note
-            context.read<NoteDatabase>().updateNote(
-              note.id,
-              textController.text,
-            );
+            context
+            .read<NoteDatabase>()
+            .updateNote(
+              note.id, textController.text);
+
             // clear text field
             textController.clear();
-            // pop dialog
+            // pop dialog box
             Navigator.pop(context);
           },
           child: const Text("Update"),
@@ -109,7 +106,7 @@ void updateNote(Note note) {
 
 void deleteNote (int id) {
 
-context.read<NoteDatabase>().deleteNote (id);
+  context.read<NoteDatabase>().deleteNote (id);
 
 }
 
@@ -137,6 +134,9 @@ context.read<NoteDatabase>().deleteNote (id);
         itemCount: currentNotes.length,
         itemBuilder: (context, index) {
           final note = currentNotes[index];
+
+
+          
 
 
 
