@@ -158,16 +158,7 @@ context.read<NoteDatabase>().deleteNote (id);
                   onPressed: () => deleteNote (note.id),
                 ),
               ],
-              
-
-                // edit button 
-
-
-
-                // delete button
-              
-                
-              
+                                             
             ),
           );
         },
