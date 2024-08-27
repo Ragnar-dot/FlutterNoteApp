@@ -1,16 +1,35 @@
-
 import 'package:flutter/material.dart';
-import "package:isarcrudtute/theme/theme.dart";
-
 
 class ThemeProvider with ChangeNotifier {
-// initialize - theme mode is light mode
+  // Define light and dark theme modes
+  static final ThemeData lightMode = ThemeData.light();
+  static final ThemeData darkMode = ThemeData.dark();
 
-ThemeData _themeMode = lightMode;
+  // Initialize theme mode to light mode
+  ThemeData _themeMode = lightMode;
+  
+  
+  // Getter to get the current theme mode
+  ThemeData get themeMode => _themeMode;
 
-ThemeData get themeMode => _themeMode;
 
-bool get isDarkMode => _themeMode == darkMode;
+  // Getter to check if the current theme mode is dark mode
+  bool get isDarkMode => _themeMode == darkMode;
 
 
+// Setter to set the theme mode
+  set themeMode(ThemeData theme) {
+    _themeMode = themeMode;
+    notifyListeners();
+  }
+
+  // Method to toggle theme mode
+  void toggleTheme() {
+    if (_themeMode == lightMode) {
+      _themeMode = darkMode;
+    } else {
+      _themeMode = lightMode;
+    }
+    notifyListeners();
+  }
 }
