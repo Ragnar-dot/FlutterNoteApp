@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
       theme: Provider.of<ThemeProvider>(context).themeMode,
 
     );
-
   }
 }
 
