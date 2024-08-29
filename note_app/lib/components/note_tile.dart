@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
 
-class NoteTile extends StatelessWidget {
+class NoteTile extends StatefulWidget {
   final String text;
   final void Function()? onEditPressed;
   final void Function()? onDeletePressed;
+
   const NoteTile({
     super.key,
     required this.text,
@@ -12,30 +13,57 @@ class NoteTile extends StatelessWidget {
   });
 
   @override
+  _NoteTileState createState() => _NoteTileState();
+}
+
+class _NoteTileState extends State<NoteTile> {
+  bool isChecked = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        color: const Color.fromARGB(77, 225, 224, 226),
+        borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.only(
         top: 10,
-        left: 25,
-        right: 25,
+        left: 20,
+        right: 20,
       ),
       child: ListTile(
-        title: Text(text),
+        title: Text(widget.text),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              onPressed: onEditPressed,
-              icon: const Icon(Icons.edit),
+
+
+            // Checkbox
+           SizedBox(
+              width: 50,
+              height: 50,
+              child: Checkbox(
+                value: isChecked,
+                activeColor: const Color.fromARGB(255, 31, 183, 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                onChanged: (newBool) {
+                  setState(() {
+                    isChecked = newBool!;
+                  });
+                },
+              ),
             ),
             IconButton(
-              onPressed: onDeletePressed,
-              icon: const Icon(Icons.delete),
+              onPressed: widget.onEditPressed,
+              icon: Image.asset('assets/1_edit_icon.png', width: 40, height: 40),
             ),
+
+            IconButton(
+              onPressed: widget.onDeletePressed,
+              icon: Image.asset('assets/1_delete_icon.png', width: 40, height: 40),
+            ),   
           ],
         ),
       ),

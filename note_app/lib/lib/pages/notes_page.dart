@@ -38,8 +38,10 @@ class _NotesPageState extends State<NotesPage> {
         actions: [
           // create button
           MaterialButton(
+            
             onPressed: () {
               context.read<NoteDatabase>().addNote(textController.text);
+              
 
               // clear text field
               textController.clear();

@@ -17,20 +17,24 @@ const SettingsPage({super.key});
       ),
       body: Container(
         decoration: BoxDecoration(
-          color:  const Color.fromARGB(181, 105, 105, 105),
+          color:  const Color.fromARGB(53, 145, 145, 145),
           borderRadius: BorderRadius .circular(50),
         ),
         
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25), // Add the desired padding value here
-          margin: const EdgeInsets.only(left: 25, right: 25, top: 20), // Add the desired margin value here
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25), // Add the desired padding value here
+          margin: const EdgeInsets.only(left: 20, right: 20, top: 30), // Add the desired margin value here
+          // ignore: prefer_const_constructors
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
-
-              
               // Dark Mode
-              const Text("Dark Mode"),
+              const Text(
+                "Dark Mode",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          
               // Switch toogle
               CupertinoSwitch(
                 value: Provider.of<ThemeProvider>(context).isDarkMode,
