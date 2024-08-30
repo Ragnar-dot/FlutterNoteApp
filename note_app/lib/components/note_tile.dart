@@ -1,4 +1,5 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class NoteTile extends StatefulWidget {
   final String text;
@@ -13,12 +14,31 @@ class NoteTile extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _NoteTileState createState() => _NoteTileState();
 }
 
 class _NoteTileState extends State<NoteTile> {
+  late Box noteBox;
   bool isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    noteBox = Hive.box('noteBox');
+    _loadIsChecked();
+  }
+
+  // Load the isChecked value from Hive
+  void _loadIsChecked() {
+    setState(() {
+      isChecked = noteBox.get('isChecked_${widget.text}', defaultValue: false);
+    });
+  }
+
+  // Save the isChecked value to Hive
+  void _saveIsChecked(bool value) {
+    noteBox.put('isChecked_${widget.text}', value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +57,8 @@ class _NoteTileState extends State<NoteTile> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-
-
             // Checkbox
-           SizedBox(
+            SizedBox(
               width: 50,
               height: 50,
               child: Checkbox(
@@ -52,6 +70,7 @@ class _NoteTileState extends State<NoteTile> {
                 onChanged: (newBool) {
                   setState(() {
                     isChecked = newBool!;
+                    _saveIsChecked(isChecked);
                   });
                 },
               ),
@@ -60,11 +79,10 @@ class _NoteTileState extends State<NoteTile> {
               onPressed: widget.onEditPressed,
               icon: Image.asset('assets/edit.png', width: 40, height: 40),
             ),
-
             IconButton(
               onPressed: widget.onDeletePressed,
               icon: Image.asset('assets/delete.png', width: 40, height: 40),
-            ),   
+            ),
           ],
         ),
       ),

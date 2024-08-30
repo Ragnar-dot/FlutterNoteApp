@@ -3,12 +3,15 @@ import 'package:note_app/models/note_database.dart';
 import 'package:note_app/lib/pages/notes_page.dart';
 import 'package:note_app/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
- 
+import 'package:hive_flutter/hive_flutter.dart';
+
 void main()async{
 
   // initialize - note isar database
 WidgetsFlutterBinding.ensureInitialized();
 await NoteDatabase.init();
+await Hive.initFlutter();
+await Hive.openBox('noteBox');
 
 
   runApp(
