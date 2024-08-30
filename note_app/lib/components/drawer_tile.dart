@@ -19,7 +19,7 @@ class DrawerTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           title,
-        style: const TextStyle(color: Color.fromARGB(255, 146, 69, 69)),
+        style: const TextStyle(color: Color.fromARGB(255, 98, 1, 143)),
       ),
         leading: leading,
         onTap: onTap,

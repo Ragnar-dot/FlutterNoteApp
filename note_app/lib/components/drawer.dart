@@ -11,8 +11,8 @@ class MyDrawer extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
-          const DrawerHeader(
-            child:  Icon(Icons.home),
+          DrawerHeader(
+            child:  Image.asset('assets/home.png', width: 40, height: 40),
           ),
 
 
@@ -20,7 +20,7 @@ class MyDrawer extends StatelessWidget {
          // Notes tile
           DrawerTile(
             title: ("Notes"),
-            leading: const Icon(Icons.home),
+            leading: Image.asset('assets/home.png', width: 40, height: 40),
             onTap: () => Navigator.pop(context,),
           ),
 
@@ -28,7 +28,7 @@ class MyDrawer extends StatelessWidget {
           // Settings tile
           DrawerTile(
             title: ("Settings"),
-            leading: const Icon(Icons.settings),
+            leading: Image.asset('assets/settings.png', width: 40, height: 40),
             onTap: () { 
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));

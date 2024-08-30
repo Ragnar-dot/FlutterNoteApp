@@ -13,6 +13,7 @@ class NoteTile extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _NoteTileState createState() => _NoteTileState();
 }
 
@@ -57,12 +58,12 @@ class _NoteTileState extends State<NoteTile> {
             ),
             IconButton(
               onPressed: widget.onEditPressed,
-              icon: Image.asset('assets/1_edit_icon.png', width: 40, height: 40),
+              icon: Image.asset('assets/edit.png', width: 40, height: 40),
             ),
 
             IconButton(
               onPressed: widget.onDeletePressed,
-              icon: Image.asset('assets/1_delete_icon.png', width: 40, height: 40),
+              icon: Image.asset('assets/delete.png', width: 40, height: 40),
             ),   
           ],
         ),
