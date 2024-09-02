@@ -18,7 +18,7 @@ class NoteTile extends StatefulWidget {
 }
 
 class _NoteTileState extends State<NoteTile> {
-  late Box noteBox;
+  late Box noteBox;// Hive box
   bool isChecked = false;
 
   @override
@@ -26,6 +26,13 @@ class _NoteTileState extends State<NoteTile> {
     super.initState();
     noteBox = Hive.box('noteBox');
     _loadIsChecked();
+  }
+
+  void sortNotes(List<Note> notes) {
+    setState(() {
+      notes.sort((a, b) => a.isChecked == b.isChecked ? 0 : (a.isChecked ? 1 : -1));
+      // If you're using the sorted list somewhere else, make sure to update it here.
+    });
   }
 
   // Load the isChecked value from Hive
@@ -85,6 +92,81 @@ class _NoteTileState extends State<NoteTile> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// Definition der Klasse Note
+class Note {
+  final String text;
+  final bool isChecked;
+
+  Note({
+    required this.text,
+    required this.isChecked,
+  });
+
+  // Factory method to create a Note from a Hive object
+  factory Note.fromHive(Map<dynamic, dynamic> hiveObject) {
+    return Note(
+      text: hiveObject['text'],
+      isChecked: hiveObject['isChecked'],
+    );
+  }
+}
+
+class NotesList extends StatefulWidget {
+  @override
+  _NotesListState createState() => _NotesListState();
+}
+
+class _NotesListState extends State<NotesList> {
+  late List<Note> notes;
+  late Box noteBox;
+
+  @override
+  void initState() {
+    super.initState();
+    noteBox = Hive.box('noteBox');
+    loadNotes();
+  }
+
+  void loadNotes() {
+    notes = noteBox.values.map((note) => Note.fromHive(note)).toList();
+  }
+
+  void sortNotes() {
+    setState(() {
+      notes.sort((a, b) => a.isChecked == b.isChecked ? 0 : (a.isChecked ? 1 : -1));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Notes"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.sort),
+            onPressed: sortNotes,
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: notes.length,
+        itemBuilder: (context, index) {
+          return NoteTile(
+            text: notes[index].text,
+            onEditPressed: () {
+              // Edit logic
+            },
+            onDeletePressed: () {
+              // Delete logic
+            },
+          );
+        },
       ),
     );
   }

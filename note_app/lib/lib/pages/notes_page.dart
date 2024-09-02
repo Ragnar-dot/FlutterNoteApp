@@ -4,10 +4,12 @@ import "package:google_fonts/google_fonts.dart";
 import "package:note_app/components/drawer.dart";
 import "package:note_app/components/note_tile.dart";
 
-import "package:note_app/models/note.dart";
-import "package:note_app/models/note_database.dart";
+import "package:note_app/models/note.dart" as nt;
+import "../../models/note_database.dart";
 
 import "package:provider/provider.dart";
+
+
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
@@ -18,6 +20,11 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> {
   final textController = TextEditingController();
+
+
+
+
+
 
   @override
   void initState() {
@@ -62,7 +69,7 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   // update a note
-  void updateNote(Note note) {
+  void updateNote( note) {
     // pre-fill the current note text
     textController.text = note.text;
     showDialog(
@@ -103,7 +110,7 @@ class _NotesPageState extends State<NotesPage> {
     final noteDatabase = context.watch<NoteDatabase>();
 
     // current notes
-    List<Note> currentNotes = noteDatabase.currentNotes;
+    List<nt.Note> currentNotes = noteDatabase.currentNotes;
 
     return Scaffold(
       appBar: AppBar(
@@ -155,3 +162,5 @@ class _NotesPageState extends State<NotesPage> {
     );
   }
 }
+
+
